@@ -1,0 +1,57 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SauceTest Report</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+</head>
+<body>
+
+
+
+<div class="sauce-report">
+
+<div class="results">
+
+
+  <% @test_result.each do |result| %>
+
+    <div>
+      <div>
+        File: <a href="<%=u(result[7])%>"><%=result[0]%></a>
+      </div>
+
+      <div>
+        Test: <%=result[1] + ' ' + result[2]%>
+      </div>
+
+      <div>
+        Browser: <%=result[3]['name'] + ' ' + result[3]['version'].to_s + ' on ' + result[3]['os']%>
+      </div>
+
+      <div>
+        Status: <%=result[4]%>
+      </div>
+
+
+      <div>
+        Duration: <%=result[5]%> sec
+      </div>
+
+      <div>
+        <a href="http://saucelabs.com/jobs/<%=result[6]%>">Sauce Labs Report</a>
+      </div>
+
+      </br>
+    </div>
+
+  <% end %>
+
+</div>
+
+
+</body>
+</html>

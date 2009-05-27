@@ -1,0 +1,50 @@
+= SauceTest
+
+* http://saucelabs.com
+* http://rubyforge.org/projects/sauce-test
+
+== DESCRIPTION:
+
+SauceTest lets you run your Selenium tests on Sauce Labs cloud unchanged.
+
+sauce_test is command line utility you can use
+or create rake task and run your tests in parallel
+
+== SYNOPSIS:
+
+1. create new rake task, should look like that:
+
+require 'rubygems'
+require 'rake'
+require 'sauce-test/rake/tasks'
+
+SauceTest::Rake::RSpecTask.new do |t|
+  # Dir.glob pattern, only mandatory field
+  t.files = 'spec/**/*_spec.rb'  
+
+  # Sauce Labs JSON browser 
+  t.browsers = [{'os' => "Linux", 'name' => "firefox", 'version' => 3},
+                {'os' => "Windows 2003", 'name' => "iexplore", 'version' => 7}]
+
+  # workers per browser, in this case 4 for firefox and 4 for iexplore
+  t.workers = 4               
+
+  t.report = 'path_to/report'
+  t.config = 'config/sauce.yml'
+end
+
+
+2. create config/sauce.yml file:
+
+    login: user
+    key: ff487724-2sfe-4a50-8365-sc750f2d875f
+    timeout: 180 #optional but advised to be at least 90 sec
+
+
+3. rake sauce:spec
+
+== INSTALL:
+
+  [sudo] gem install sauce-test
+
+

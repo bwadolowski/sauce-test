@@ -1,0 +1,9 @@
+require 'rubygems'
+require 'rake'
+require 'sauce-test/rake/tasks'
+
+
+SauceTest::Rake::RSpecTask.new do |t|
+  t.files = 'spec/**/*_spec.rb'
+  t.workers = 4
+end

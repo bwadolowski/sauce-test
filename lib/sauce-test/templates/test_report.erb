@@ -1,0 +1,81 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>SauceTest Report</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+</head>
+<body>
+
+
+
+<div class="sauce-report">
+
+<div id="sauce-header">
+  <div id="summary">
+    <p id="file"><%= test_file %></p>
+    <p id="browser">
+      <%= browser['name'] + ' ' + browser['version'].to_s + ' on ' + browser['os'] %>
+    </p>
+    <p id="totals">
+      <%= @count['total'].to_s + ' examples' %>
+      <%= ', ' + @count['failed'].to_s + ' FAILED' %>
+      <%= ', ' + @count['pending'].to_s + ' pending' %>
+    </p>
+    <p id="duration">Duration: <%= duration %> sec</p>
+  </div>
+</div>
+
+<div class="results">
+  <div class=example_group">
+
+  <% @groups.each do |g| %>
+
+    <dl>
+    <dt><%= h(g['name']) %></dt>
+
+    <% g['examples'].each do |e| %>
+
+      <% if e['status'] == 'failed' %>
+        <dd class="failed">
+          <span class="failed_name"><%= h(e['name']) %>
+          <a class="job_link" href="<%= 'http://saucelabs.com/jobs/' + e['job_id'] %>">(Sauce Labs Job)</a></span>
+          <div class="failure">
+          <div class="message"><pre>
+            <%= h(e['message']) %>
+          </pre></div>
+          <div class="backtrace"><pre>
+            <%= e['file'] + ':' + e['line'].to_s %>
+          </pre></div>
+          </div>
+        </dd>
+      <% end %>
+
+      <% if e['status'] == 'passed' %>
+        <dd class="passed">
+          <span class="passed_name"><%= h(e['name']) %>
+          <a class="job_link" href="<%= 'http://saucelabs.com/jobs/' + e['job_id'] %>">(Sauce Labs Job)</a></span>
+        </dd>
+      <% end %>
+
+      <% if e['status'] == 'pending' %>
+        <dd class="pending">
+          <span class="pending_name"><%= h(e['name'] + ' PENDING: ' + e['message']) %></span>
+        </dd>
+      <% end %>
+
+    <% end %>
+
+    </dl>
+
+  <% end %>
+
+  </div>
+</div>
+
+
+</body>
+</html>
